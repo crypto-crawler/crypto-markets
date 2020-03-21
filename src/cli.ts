@@ -1,22 +1,30 @@
 #!/usr/bin/env node
-import chalk from 'chalk';
-import figlet from 'figlet';
+/* eslint-disable no-console */
 import yargs from 'yargs';
-import { myFunc } from './index';
+import fetchMarkets, { MARKET_TYPES, SupportedExchange, SUPPORTED_EXCHANGES } from './index';
+import { MarketType } from './pojo/market';
 
-const { argv } = yargs.options({
-  a: { type: 'boolean', default: false },
-  b: { type: 'string', demandOption: true },
-  c: { type: 'number', alias: 'chill' },
-  d: { type: 'array' },
-  e: { type: 'count' },
-  f: { choices: ['1', '2', '3'] },
-});
+const { argv } = yargs
+  // eslint-disable-next-line no-shadow
+  .command('$0 <exchange> [filter]', 'Get exchange info', yargs => {
+    yargs
+      .positional('exchange', {
+        choices: SUPPORTED_EXCHANGES,
+        type: 'string',
+        describe: 'The exchange name',
+      })
+      .options({
+        marketType: {
+          choices: MARKET_TYPES,
+          type: 'string',
+        },
+      });
+  });
 
-console.log(chalk.green(figlet.textSync('ts-cli-starter')));
-
-console.log('Hello World');
-
-console.info(argv);
-
-myFunc();
+(async () => {
+  const result = await fetchMarkets(
+    argv.exchange as SupportedExchange,
+    argv.marketType as MarketType,
+  );
+  console.info(result);
+})();

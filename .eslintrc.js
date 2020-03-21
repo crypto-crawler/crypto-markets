@@ -23,6 +23,7 @@ const eslintrc = {
     },
   ],
   rules: {
+    camelcase: 'off',
     'no-console': 'off',
     'import/extensions': 'off',
   },
