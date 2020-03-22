@@ -5,7 +5,7 @@ Get all trading pairs of a cryptocurrency exchange.
 ## How to use
 
 ```javascript
-/* eslint-disable import/no-unresolved,no-console */
+/* eslint-disable */
 const fetchMarkets = require('crypto-markets').default;
 
 (async () => {

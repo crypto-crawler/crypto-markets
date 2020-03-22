@@ -44,7 +44,7 @@ export async function fetchMarketsByType(
     contract_val: string;
   }>;
 
-  arr.forEach(p => {
+  arr.forEach((p) => {
     const market: Market = {
       exchange: 'OKEx',
       id: p.instrument_id,

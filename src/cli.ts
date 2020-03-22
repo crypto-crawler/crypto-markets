@@ -6,7 +6,7 @@ import { MarketType } from './pojo/market';
 
 const { argv } = yargs
   // eslint-disable-next-line no-shadow
-  .command('$0 <exchange> [filter]', 'Get exchange info', yargs => {
+  .command('$0 <exchange> [filter]', 'Get exchange info', (yargs) => {
     yargs
       .positional('exchange', {
         choices: SUPPORTED_EXCHANGES,
@@ -21,7 +21,7 @@ const { argv } = yargs
       });
   });
 
-(async () => {
+(async (): Promise<void> => {
   const result = await fetchMarkets(
     argv.exchange as SupportedExchange,
     argv.marketType as MarketType,

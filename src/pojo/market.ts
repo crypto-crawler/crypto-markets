@@ -28,5 +28,6 @@ export interface Market {
     base?: number;
     quote?: number;
   };
-  info: { [key: string]: any }; //  the original unparsed market info from the exchange
+  //  the original unparsed market info from the exchange
+  info: { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
