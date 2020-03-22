@@ -2,7 +2,6 @@ import { strict as assert } from 'assert';
 import Axios from 'axios';
 import { normalizeSymbol } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
-import { mergeMarkets } from '../utils';
 
 interface HuobiPairInfo {
   'base-currency': string;
@@ -24,13 +23,13 @@ function extractNormalizedPair(pairInfo: HuobiPairInfo): string {
   return `${baseSymbol}/${pairInfo['quote-currency']}`.toUpperCase();
 }
 
-export async function fetchSpotMarkets(): Promise<{ [key: string]: Market[] }> {
+export async function fetchSpotMarkets(): Promise<Market[]> {
   const response = await Axios.get('https://api.huobi.pro/v1/common/symbols');
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
   assert.equal(response.data.status, 'ok');
 
-  const result: { [key: string]: Market[] } = {};
+  const result: Market[] = [];
 
   const arr = response.data.data as ReadonlyArray<HuobiPairInfo>;
 
@@ -64,19 +63,16 @@ export async function fetchSpotMarkets(): Promise<{ [key: string]: Market[] }> {
 
     // assert.equal(market.pair, normalizePair(market.id, 'Huobi')); // todo: change _ to / in crypto-pair
 
-    if (!(market.pair in result)) result[market.pair] = [];
-    result[market.pair].push(market);
+    result.push(market);
   });
 
   return result;
 }
 
-export async function fetchFuturesMarkets(): Promise<{ [key: string]: Market[] }> {
+export async function fetchFuturesMarkets(): Promise<Market[]> {
   const response = await Axios.get('https://api.hbdm.com/api/v1/contract_contract_info');
   assert.equal(response.status, 200);
   assert.equal(response.data.status, 'ok');
-
-  const result: { [key: string]: Market[] } = {};
 
   const arr = response.data.data as ReadonlyArray<{
     symbol: string;
@@ -89,37 +85,32 @@ export async function fetchFuturesMarkets(): Promise<{ [key: string]: Market[] }
     contract_status: number;
   }>;
 
-  arr.forEach((p) => {
-    const market: Market = {
-      exchange: 'Huobi',
-      id: p.contract_code,
-      pair: `${p.symbol}/USD`,
-      base: p.symbol,
-      quote: 'USD',
-      baseId: p.symbol,
-      quoteId: 'USD',
-      active: p.contract_status === 1,
-      marketType: 'Futures',
-      // see https://huobiglobal.zendesk.com/hc/en-us/articles/360000113122
-      fees: {
-        maker: 0.002,
-        taker: 0.003,
-      },
-      precision: {
-        price: -Math.log10(p.price_tick),
-        base: -1,
-      },
-      info: p,
-    };
-
-    if (!(market.pair in result)) result[market.pair] = [];
-    result[market.pair].push(market);
-  });
+  const result: Market[] = arr.map((p) => ({
+    exchange: 'Huobi',
+    id: p.contract_code,
+    pair: `${p.symbol}/USD`,
+    base: p.symbol,
+    quote: 'USD',
+    baseId: p.symbol,
+    quoteId: 'USD',
+    active: p.contract_status === 1,
+    marketType: 'Futures',
+    // see https://huobiglobal.zendesk.com/hc/en-us/articles/360000113122
+    fees: {
+      maker: 0.002,
+      taker: 0.003,
+    },
+    precision: {
+      price: -Math.log10(p.price_tick),
+      base: -1,
+    },
+    info: p,
+  }));
 
   return result;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<{ [key: string]: Market[] }> {
+export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
   if (marketType) {
     switch (marketType) {
       case 'Spot':
@@ -133,9 +124,5 @@ export async function fetchMarkets(marketType?: MarketType): Promise<{ [key: str
   const spot = await fetchSpotMarkets();
   const futures = await fetchFuturesMarkets();
 
-  const result: { [key: string]: Market[] } = { ...spot };
-
-  mergeMarkets(result, futures);
-
-  return result;
+  return spot.concat(futures);
 }

@@ -15,7 +15,7 @@ export { SupportedExchange, SUPPORTED_EXCHANGES } from './pojo/supported_exchang
 export default async function fetchMarkets(
   exchange: SupportedExchange,
   marketType?: MarketType,
-): Promise<{ [key: string]: Market[] }> {
+): Promise<Market[]> {
   switch (exchange) {
     case 'Huobi': {
       if (marketType !== undefined && marketType !== 'Spot') {

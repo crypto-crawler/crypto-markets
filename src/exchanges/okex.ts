@@ -1,7 +1,6 @@
 import { strict as assert } from 'assert';
 import Axios from 'axios';
 import { Market, MarketType } from '../pojo/market';
-import { mergeMarkets } from '../utils';
 
 // see https://www.okex.com/pages/products/fees.html
 const fees = {
@@ -23,15 +22,11 @@ const fees = {
   },
 };
 
-export async function fetchMarketsByType(
-  marketType: MarketType,
-): Promise<{ [key: string]: Market[] }> {
+export async function fetchMarketsByType(marketType: MarketType): Promise<Market[]> {
   const response = await Axios.get(
     `https://www.okex.com/api/${marketType.toLowerCase()}/v3/instruments`,
   );
   assert.equal(response.status, 200);
-
-  const result: { [key: string]: Market[] } = {};
 
   const arr = response.data as Array<{
     base_currency: string;
@@ -44,7 +39,7 @@ export async function fetchMarketsByType(
     contract_val: string;
   }>;
 
-  arr.forEach((p) => {
+  const result: Market[] = arr.map((p) => {
     const market: Market = {
       exchange: 'OKEx',
       id: p.instrument_id,
@@ -90,14 +85,13 @@ export async function fetchMarketsByType(
         throw new Error(`Unknown marketType: ${marketType}`);
     }
 
-    if (!(market.pair in result)) result[market.pair] = [];
-    result[market.pair].push(market);
+    return market;
   });
 
   return result;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<{ [key: string]: Market[] }> {
+export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
   if (marketType) {
     return fetchMarketsByType(marketType);
   }
@@ -105,10 +99,5 @@ export async function fetchMarkets(marketType?: MarketType): Promise<{ [key: str
   const futures = await fetchMarketsByType('Futures');
   const swap = await fetchMarketsByType('Swap');
 
-  const result: { [key: string]: Market[] } = { ...spot };
-
-  mergeMarkets(result, futures);
-  mergeMarkets(result, swap);
-
-  return result;
+  return spot.concat(futures).concat(swap);
 }
