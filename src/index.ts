@@ -1,3 +1,4 @@
+import * as Huobi from './exchanges/huobi';
 import * as OKEx from './exchanges/okex';
 import { Market, MarketType } from './pojo/market';
 import { SupportedExchange } from './pojo/supported_exchange';
@@ -8,7 +9,7 @@ export { SupportedExchange, SUPPORTED_EXCHANGES } from './pojo/supported_exchang
 /**
  * Fetch trading markets of a crypto exchange.
  * @param exchange The crypto exchange name
- * @param marketType Market type
+ * @param marketType Market type, if not provided, fetch all market types
  * @returns All trading markets
  */
 export default async function fetchMarkets(
@@ -16,6 +17,12 @@ export default async function fetchMarkets(
   marketType?: MarketType,
 ): Promise<{ [key: string]: Market[] }> {
   switch (exchange) {
+    case 'Huobi': {
+      if (marketType !== undefined && marketType !== 'Spot') {
+        throw new Error('Huobi only has Spot market, for other types please use HuobiDM');
+      }
+      return Huobi.fetchMarkets();
+    }
     case 'OKEx':
       return OKEx.fetchMarkets(marketType);
     default:

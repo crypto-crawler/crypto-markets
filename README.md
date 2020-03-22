@@ -41,4 +41,5 @@ export default function fetchMarkets(
 
 ## Supported Exchanges
 
+- Huobi
 - OKEx
