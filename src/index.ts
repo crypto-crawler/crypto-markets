@@ -12,7 +12,7 @@ import * as WhaleEx from './exchanges/whaleex';
 import { Market, MarketType } from './pojo/market';
 import { SupportedExchange } from './pojo/supported_exchange';
 
-export { MarketType, MARKET_TYPES } from './pojo/market';
+export { Market, MarketType, MARKET_TYPES } from './pojo/market';
 export { SupportedExchange, SUPPORTED_EXCHANGES } from './pojo/supported_exchange';
 
 /**
