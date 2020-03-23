@@ -1,6 +1,6 @@
 {
   "name": "crypto-markets",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Get all trading pairs of a cryptocurrency exchange.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

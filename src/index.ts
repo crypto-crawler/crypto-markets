@@ -1,3 +1,4 @@
+import * as Binance from './exchanges/binance';
 import * as Huobi from './exchanges/huobi';
 import * as OKEx from './exchanges/okex';
 import { Market, MarketType } from './pojo/market';
@@ -17,6 +18,8 @@ export default async function fetchMarkets(
   marketType?: MarketType,
 ): Promise<Market[]> {
   switch (exchange) {
+    case 'Binance':
+      return Binance.fetchMarkets(marketType);
     case 'Huobi': {
       if (marketType !== undefined && marketType !== 'Spot') {
         throw new Error('Huobi only has Spot market, for other types please use HuobiDM');

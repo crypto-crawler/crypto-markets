@@ -1,6 +1,5 @@
 import { Market } from './pojo/market';
 
-// eslint-disable-next-line import/prefer-default-export
 export function mergeMarkets(
   result: { [key: string]: Market[] },
   markets: { [key: string]: Market[] },
@@ -12,4 +11,9 @@ export function mergeMarkets(
       result[pair] = markets[pair]; // eslint-disable-line no-param-reassign
     }
   });
+}
+
+export function calcPrecision(numberStr: string): number {
+  const n = -Math.log10(parseFloat(numberStr));
+  return n === 0 ? 0 : n;
 }

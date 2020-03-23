@@ -29,6 +29,7 @@ const eslintrc = {
   ],
   rules: {
     camelcase: 'off',
+    '@typescript-eslint/camelcase': 'off',
     'no-console': 'off',
     'import/extensions': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
