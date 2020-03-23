@@ -39,6 +39,14 @@ export default function fetchMarkets(
 
 ## Supported Exchanges
 
+- Biki
 - Binance
+- Bitfinex
+- Bitstamp
+- Coinbase
 - Huobi
+- Kraken
+- MXC
+- Newdex
 - OKEx
+- WhaleEx

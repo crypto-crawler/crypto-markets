@@ -8,6 +8,7 @@ import * as Kraken from './exchanges/kraken';
 import * as MXC from './exchanges/mxc';
 import * as Newdex from './exchanges/newdex';
 import * as OKEx from './exchanges/okex';
+import * as WhaleEx from './exchanges/whaleex';
 import { Market, MarketType } from './pojo/market';
 import { SupportedExchange } from './pojo/supported_exchange';
 
@@ -49,6 +50,8 @@ export default async function fetchMarkets(
       return MXC.fetchMarkets(marketType);
     case 'OKEx':
       return OKEx.fetchMarkets(marketType);
+    case 'WhaleEx':
+      return WhaleEx.fetchMarkets(marketType);
     default:
       throw new Error(`Unknown exchange: ${exchange}`);
   }
