@@ -4,6 +4,7 @@ import * as Bitfinex from './exchanges/bitfinex';
 import * as Bitstamp from './exchanges/bitstamp';
 import * as CoinbasePro from './exchanges/coinbase_pro';
 import * as Huobi from './exchanges/huobi';
+import * as Kraken from './exchanges/kraken';
 import * as OKEx from './exchanges/okex';
 import { Market, MarketType } from './pojo/market';
 import { SupportedExchange } from './pojo/supported_exchange';
@@ -38,6 +39,8 @@ export default async function fetchMarkets(
       }
       return Huobi.fetchMarkets();
     }
+    case 'Kraken':
+      return Kraken.fetchMarkets(marketType);
     case 'OKEx':
       return OKEx.fetchMarkets(marketType);
     default:
