@@ -1,6 +1,6 @@
 import { strict as assert } from 'assert';
 import Axios from 'axios';
-import { normalizeSymbol } from 'crypto-pair';
+import { normalizePair, normalizeSymbol } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 
 interface HuobiPairInfo {
@@ -20,7 +20,7 @@ interface HuobiPairInfo {
 function extractNormalizedPair(pairInfo: HuobiPairInfo): string {
   let baseSymbol = pairInfo['base-currency'];
   if (baseSymbol === 'hot') baseSymbol = 'Hydro';
-  return `${baseSymbol}/${pairInfo['quote-currency']}`.toUpperCase();
+  return `${baseSymbol}_${pairInfo['quote-currency']}`.toUpperCase();
 }
 
 export async function fetchSpotMarkets(): Promise<Market[]> {
@@ -61,7 +61,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
       info: p,
     };
 
-    // assert.equal(market.pair, normalizePair(market.id, 'Huobi')); // todo: change _ to / in crypto-pair
+    assert.equal(market.pair, normalizePair(market.id, 'Huobi'));
 
     result.push(market);
   });
@@ -88,7 +88,7 @@ export async function fetchFuturesMarkets(): Promise<Market[]> {
   const result: Market[] = arr.map((p) => ({
     exchange: 'Huobi',
     id: p.contract_code,
-    pair: `${p.symbol}/USD`,
+    pair: `${p.symbol}_USD`,
     base: p.symbol,
     quote: 'USD',
     baseId: p.symbol,

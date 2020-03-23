@@ -43,7 +43,7 @@ export async function fetchMarketsByType(marketType: MarketType): Promise<Market
     const market: Market = {
       exchange: 'OKEx',
       id: p.instrument_id,
-      pair: `${p.base_currency}/${p.quote_currency}`,
+      pair: `${p.base_currency}_${p.quote_currency}`,
       base: p.base_currency,
       quote: p.quote_currency,
       baseId: p.base_currency,

@@ -1,5 +1,6 @@
 import { strict as assert } from 'assert';
 import axios from 'axios';
+import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 
 async function getNameMapping(): Promise<{ [key: string]: string }> {
@@ -63,7 +64,7 @@ export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
     const market: Market = {
       exchange: 'Bitfinex',
       id: pair.pair,
-      pair: `${baseSymbol}/${quoteSymbol}`,
+      pair: `${baseSymbol}_${quoteSymbol}`,
       base: baseSymbol,
       quote: quoteSymbol,
       baseId: baseSymbol,
@@ -82,7 +83,7 @@ export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
       minQuantity: { base: parseFloat(pair.minimum_order_size) },
       info: pair,
     };
-    // assert.equal(market.pair, normalizePair(market.id, 'Bitfinex'));
+    assert.equal(market.pair, normalizePair(market.id, 'Bitfinex'));
 
     return market;
   });

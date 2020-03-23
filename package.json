@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "crypto-pair": "^0.1.2",
+    "crypto-pair": "^0.1.3",
     "yargs": "^15.3.1"
   }
 }

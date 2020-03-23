@@ -1,5 +1,6 @@
 import { strict as assert } from 'assert';
 import Axios from 'axios';
+import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 import { calcPrecision } from '../utils';
 
@@ -27,7 +28,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
     const market: Market = {
       exchange: 'Binance',
       id: pair.symbol,
-      pair: `${pair.baseAsset}/${pair.quoteAsset}`,
+      pair: `${pair.baseAsset}_${pair.quoteAsset}`,
       base: pair.baseAsset,
       quote: pair.quoteAsset,
       baseId: pair.baseAsset,
@@ -58,7 +59,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
       info: pair,
     };
 
-    // assert.equal(market.pair, normalizePair(market.id, 'Binance'));
+    assert.equal(market.pair, normalizePair(market.id, 'Binance'));
 
     return market;
   });
