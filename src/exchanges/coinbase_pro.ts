@@ -55,7 +55,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
       info: pair,
     };
 
-    assert.equal(market.pair, normalizePair(market.id, 'Coinbase'));
+    assert.equal(market.pair, normalizePair(market.id, 'CoinbasePro'));
 
     return market;
   });
