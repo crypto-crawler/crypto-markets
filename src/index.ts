@@ -1,3 +1,4 @@
+import * as Biki from './exchanges/biki';
 import * as Binance from './exchanges/binance';
 import * as Huobi from './exchanges/huobi';
 import * as OKEx from './exchanges/okex';
@@ -18,6 +19,8 @@ export default async function fetchMarkets(
   marketType?: MarketType,
 ): Promise<Market[]> {
   switch (exchange) {
+    case 'Biki':
+      return Biki.fetchMarkets(marketType);
     case 'Binance':
       return Binance.fetchMarkets(marketType);
     case 'Huobi': {
