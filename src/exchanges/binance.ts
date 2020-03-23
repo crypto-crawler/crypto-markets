@@ -96,7 +96,7 @@ export async function fetchFuturesMarkets(): Promise<Market[]> {
     const market: Market = {
       exchange: 'Binance',
       id: pair.symbol,
-      pair: `${pair.baseAsset}/${pair.quoteAsset}`,
+      pair: `${pair.baseAsset}_${pair.quoteAsset}`,
       base: pair.baseAsset,
       quote: pair.quoteAsset,
       baseId: pair.baseAsset,
