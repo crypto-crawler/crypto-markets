@@ -3,7 +3,7 @@ export const SUPPORTED_EXCHANGES = [
   'Binance',
   'Bitfinex',
   'Bitstamp',
-  'Coinbase',
+  'CoinbasePro',
   'Coincheck',
   'Huobi',
   'Kraken',

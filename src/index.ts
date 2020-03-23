@@ -2,6 +2,7 @@ import * as Biki from './exchanges/biki';
 import * as Binance from './exchanges/binance';
 import * as Bitfinex from './exchanges/bitfinex';
 import * as Bitstamp from './exchanges/bitstamp';
+import * as CoinbasePro from './exchanges/coinbase_pro';
 import * as Huobi from './exchanges/huobi';
 import * as OKEx from './exchanges/okex';
 import { Market, MarketType } from './pojo/market';
@@ -29,6 +30,8 @@ export default async function fetchMarkets(
       return Bitfinex.fetchMarkets(marketType);
     case 'Bitstamp':
       return Bitstamp.fetchMarkets(marketType);
+    case 'CoinbasePro':
+      return CoinbasePro.fetchMarkets(marketType);
     case 'Huobi': {
       if (marketType !== undefined && marketType !== 'Spot') {
         throw new Error('Huobi only has Spot market, for other types please use HuobiDM');
