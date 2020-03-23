@@ -28,18 +28,17 @@ There is only one API in this library:
 /**
  * Fetch trading markets of a crypto exchange.
  * @param exchange The crypto exchange name
- * @param marketType Market type
+ * @param marketType Market type, if not provided, fetch all market types
  * @returns All trading markets
  */
 export default function fetchMarkets(
   exchange: SupportedExchange,
   marketType?: MarketType,
-): Promise<{
-  [key: string]: Market[];
-}>;
+): Promise<Market[]>;
 ```
 
 ## Supported Exchanges
 
+- Binance
 - Huobi
 - OKEx
