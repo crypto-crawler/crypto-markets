@@ -1,5 +1,6 @@
 import * as Biki from './exchanges/biki';
 import * as Binance from './exchanges/binance';
+import * as Bitfinex from './exchanges/bitfinex';
 import * as Huobi from './exchanges/huobi';
 import * as OKEx from './exchanges/okex';
 import { Market, MarketType } from './pojo/market';
@@ -23,6 +24,8 @@ export default async function fetchMarkets(
       return Biki.fetchMarkets(marketType);
     case 'Binance':
       return Binance.fetchMarkets(marketType);
+    case 'Bitfinex':
+      return Bitfinex.fetchMarkets(marketType);
     case 'Huobi': {
       if (marketType !== undefined && marketType !== 'Spot') {
         throw new Error('Huobi only has Spot market, for other types please use HuobiDM');
