@@ -6,7 +6,7 @@ export type MarketType = typeof MARKET_TYPES[number];
 export interface Market {
   exchange: SupportedExchange; // exchange name
   id: string; // exchange-specific pair of trading currencies if Spot, or raw symbol if Fetures, Swap, Option
-  pair: string; // unified pair of trading currencies, e.g., BTC/USDT
+  pair: string; // unified pair of trading currencies, e.g., BTC_USDT
   base: string; // unified base currency, e.g., BTC
   quote: string; // unified quote currency, e.g., USDT
   baseId: string; // exchange-specific base currency
