@@ -3,7 +3,7 @@ import axios from 'axios';
 import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 
-export async function fetchSpotMarkets(): Promise<Market[]> {
+export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await axios.get('https://www.bitstamp.net/api/v2/trading-pairs-info/');
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
@@ -55,7 +55,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
   return result;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
+export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
   if (marketType) {
     return marketType === 'Spot' ? fetchSpotMarkets() : [];
   }

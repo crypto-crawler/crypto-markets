@@ -85,7 +85,7 @@ interface KrakenPairInfo {
   margin_stop: number;
 }
 
-export async function fetchSpotMarkets(): Promise<Market[]> {
+export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await axios.get('https://api.kraken.com/0/public/AssetPairs');
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
@@ -135,7 +135,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
   return result;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
+export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
   if (marketType) {
     return marketType === 'Spot' ? fetchSpotMarkets() : [];
   }

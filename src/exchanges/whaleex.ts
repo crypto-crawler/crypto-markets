@@ -22,7 +22,7 @@ interface WhaleExPairInfo {
   minNotional: string;
 }
 
-export async function fetchSpotMarkets(): Promise<Market[]> {
+export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await axios.get(`https://${RESTFUL_API_DOMAIN}/BUSINESS/api/public/symbol`);
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
@@ -79,7 +79,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
   return markets;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
+export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
   if (marketType) {
     return marketType === 'Spot' ? fetchSpotMarkets() : [];
   }

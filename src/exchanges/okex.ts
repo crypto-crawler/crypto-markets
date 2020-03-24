@@ -22,7 +22,7 @@ const fees = {
   },
 };
 
-export async function fetchMarketsByType(marketType: MarketType): Promise<Market[]> {
+export async function fetchMarketsByType(marketType: MarketType): Promise<readonly Market[]> {
   const response = await Axios.get(
     `https://www.okex.com/api/${marketType.toLowerCase()}/v3/instruments`,
   );
@@ -91,7 +91,7 @@ export async function fetchMarketsByType(marketType: MarketType): Promise<Market
   return result;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
+export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
   if (marketType) {
     return fetchMarketsByType(marketType);
   }

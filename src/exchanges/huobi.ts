@@ -23,7 +23,7 @@ function extractNormalizedPair(pairInfo: HuobiPairInfo): string {
   return `${baseSymbol}_${pairInfo['quote-currency']}`.toUpperCase();
 }
 
-export async function fetchSpotMarkets(): Promise<Market[]> {
+export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await Axios.get('https://api.huobi.pro/v1/common/symbols');
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
@@ -69,7 +69,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
   return result;
 }
 
-export async function fetchFuturesMarkets(): Promise<Market[]> {
+export async function fetchFuturesMarkets(): Promise<readonly Market[]> {
   const response = await Axios.get('https://api.hbdm.com/api/v1/contract_contract_info');
   assert.equal(response.status, 200);
   assert.equal(response.data.status, 'ok');
@@ -110,7 +110,7 @@ export async function fetchFuturesMarkets(): Promise<Market[]> {
   return result;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
+export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
   if (marketType) {
     switch (marketType) {
       case 'Spot':

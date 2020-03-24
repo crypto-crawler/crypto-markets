@@ -3,7 +3,7 @@ import axios from 'axios';
 import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 
-export async function fetchSpotMarkets(): Promise<Market[]> {
+export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await axios.get('https://openapi.biki.com/open/api/common/symbols');
   assert.equal(response.status, 200);
   assert.equal(response.data.code, '0');
@@ -52,7 +52,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
   return result;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
+export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
   if (marketType) {
     switch (marketType) {
       case 'Spot':

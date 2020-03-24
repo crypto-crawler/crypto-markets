@@ -24,7 +24,7 @@ export { SupportedExchange, SUPPORTED_EXCHANGES } from './pojo/supported_exchang
 export default async function fetchMarkets(
   exchange: SupportedExchange,
   marketType?: MarketType,
-): Promise<Market[]> {
+): Promise<readonly Market[]> {
   switch (exchange) {
     case 'Biki':
       return Biki.fetchMarkets(marketType);

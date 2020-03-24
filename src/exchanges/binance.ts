@@ -4,7 +4,7 @@ import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 import { calcPrecision } from '../utils';
 
-export async function fetchSpotMarkets(): Promise<Market[]> {
+export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await Axios.get('https://api.binance.com/api/v3/exchangeInfo');
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
@@ -67,7 +67,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
   return result;
 }
 
-export async function fetchSwapMarkets(): Promise<Market[]> {
+export async function fetchSwapMarkets(): Promise<readonly Market[]> {
   const response = await Axios.get('https://fapi.binance.com/fapi/v1/exchangeInfo');
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
@@ -139,7 +139,7 @@ export async function fetchSwapMarkets(): Promise<Market[]> {
   return result;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
+export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
   if (marketType) {
     switch (marketType) {
       case 'Spot':

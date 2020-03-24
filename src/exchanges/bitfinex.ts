@@ -41,7 +41,7 @@ function extractNormalizedPair(
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
+export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
   const response = await axios.get('https://api.bitfinex.com/v1/symbols_details');
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');

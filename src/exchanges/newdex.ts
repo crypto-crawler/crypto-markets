@@ -63,7 +63,7 @@ async function getGlobalConfig(): Promise<{
   return result;
 }
 
-export async function fetchSpotMarkets(): Promise<Market[]> {
+export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const arr: NewdexPairInfo[] = [];
   let more = true;
   let lowerBound = 1;
@@ -119,7 +119,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
   return result;
 }
 
-export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
+export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
   if (marketType) {
     return marketType === 'Spot' ? fetchSpotMarkets() : [];
   }
