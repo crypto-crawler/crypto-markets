@@ -1,6 +1,6 @@
 {
   "name": "crypto-markets",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Get all trading pairs of a cryptocurrency exchange.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -43,8 +43,8 @@
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.3",
     "@types/yargs": "^15.0.4",
-    "@typescript-eslint/eslint-plugin": "^2.24.0",
-    "@typescript-eslint/parser": "^2.24.0",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.1",
@@ -54,7 +54,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
-    "prettier": "^2.0.1",
+    "prettier": "^2.0.2",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
   },

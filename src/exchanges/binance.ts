@@ -67,7 +67,7 @@ export async function fetchSpotMarkets(): Promise<Market[]> {
   return result;
 }
 
-export async function fetchFuturesMarkets(): Promise<Market[]> {
+export async function fetchSwapMarkets(): Promise<Market[]> {
   const response = await Axios.get('https://fapi.binance.com/fapi/v1/exchangeInfo');
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
@@ -102,7 +102,7 @@ export async function fetchFuturesMarkets(): Promise<Market[]> {
       baseId: pair.baseAsset,
       quoteId: pair.quoteAsset,
       active: pair.status === 'TRADING',
-      marketType: 'Futures',
+      marketType: 'Swap', // see https://binance.zendesk.com/hc/en-us/articles/360033524991-Differences-Between-a-Perpetual-Contract-and-a-Traditional-Futures-Contract
       // see https://www.binance.com/en/fee/futureFee
       fees: {
         maker: 0.0002,
@@ -144,14 +144,14 @@ export async function fetchMarkets(marketType?: MarketType): Promise<Market[]> {
     switch (marketType) {
       case 'Spot':
         return fetchSpotMarkets();
-      case 'Futures':
-        return fetchFuturesMarkets();
+      case 'Swap':
+        return fetchSwapMarkets();
       default:
-        throw new Error(`Unkown marketType ${marketType}`);
+        throw new Error(`Unkown marketType ${marketType}, Binance has only Spot and Swap markets.`);
     }
   }
   const spot = await fetchSpotMarkets();
-  const futures = await fetchFuturesMarkets();
+  const swap = await fetchSwapMarkets();
 
-  return spot.concat(futures);
+  return spot.concat(swap);
 }
