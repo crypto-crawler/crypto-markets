@@ -36,12 +36,8 @@ export default async function fetchMarkets(
       return Bitstamp.fetchMarkets(marketType);
     case 'CoinbasePro':
       return CoinbasePro.fetchMarkets(marketType);
-    case 'Huobi': {
-      if (marketType !== undefined && marketType !== 'Spot') {
-        throw new Error('Huobi only has Spot market, for other types please use HuobiDM');
-      }
-      return Huobi.fetchMarkets();
-    }
+    case 'Huobi':
+      return Huobi.fetchMarkets(marketType);
     case 'Newdex':
       return Newdex.fetchMarkets(marketType);
     case 'Kraken':
