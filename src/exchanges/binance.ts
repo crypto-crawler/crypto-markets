@@ -27,6 +27,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
 
     const market: Market = {
       exchange: 'Binance',
+      type: 'Spot',
       id: pair.symbol,
       pair: `${pair.baseAsset}_${pair.quoteAsset}`,
       base: pair.baseAsset,
@@ -34,7 +35,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: pair.baseAsset,
       quoteId: pair.quoteAsset,
       active: pair.status === 'TRADING',
-      marketType: 'Spot',
       // see https://www.binance.com/en/fee/trading
       fees: {
         maker: 0.001,
@@ -95,6 +95,7 @@ export async function fetchSwapMarkets(): Promise<readonly Market[]> {
 
     const market: Market = {
       exchange: 'Binance',
+      type: 'Swap', // see https://binance.zendesk.com/hc/en-us/articles/360033524991-Differences-Between-a-Perpetual-Contract-and-a-Traditional-Futures-Contract
       id: pair.symbol,
       pair: `${pair.baseAsset}_${pair.quoteAsset}`,
       base: pair.baseAsset,
@@ -102,7 +103,6 @@ export async function fetchSwapMarkets(): Promise<readonly Market[]> {
       baseId: pair.baseAsset,
       quoteId: pair.quoteAsset,
       active: pair.status === 'TRADING',
-      marketType: 'Swap', // see https://binance.zendesk.com/hc/en-us/articles/360033524991-Differences-Between-a-Perpetual-Contract-and-a-Traditional-Futures-Contract
       // see https://www.binance.com/en/fee/futureFee
       fees: {
         maker: 0.0002,

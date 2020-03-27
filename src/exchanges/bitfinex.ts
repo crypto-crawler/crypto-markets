@@ -63,6 +63,7 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
 
     const market: Market = {
       exchange: 'Bitfinex',
+      type: pair.pair.endsWith(':ustf0') ? 'Futures' : 'Spot',
       id: pair.pair,
       pair: `${baseSymbol}_${quoteSymbol}`,
       base: baseSymbol,
@@ -70,7 +71,6 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
       baseId: baseSymbol,
       quoteId: quoteSymbol,
       active: true,
-      marketType: pair.pair.endsWith(':ustf0') ? 'Futures' : 'Spot',
       // see https://www.bitfinex.com/fees
       fees: {
         maker: 0.001,
@@ -88,5 +88,5 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
     return market;
   });
 
-  return marketType ? result.filter((x) => x.marketType === marketType) : result;
+  return marketType ? result.filter((x) => x.type === marketType) : result;
 }

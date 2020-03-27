@@ -35,6 +35,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
 
     const market: Market = {
       exchange: 'WhaleEx',
+      type: 'Spot',
       id: pairInfo.name,
       pair: `${baseSymbol}_${quoteSymbol}`,
       base: baseSymbol,
@@ -42,7 +43,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: baseSymbol,
       quoteId: quoteSymbol,
       active: pairInfo.enable && pairInfo.status === 'ON',
-      marketType: 'Spot',
       // see https://whaleex.zendesk.com/hc/zh-cn/articles/360015324891-%E4%BA%A4%E6%98%93%E6%89%8B%E7%BB%AD%E8%B4%B9
       fees: {
         maker: 0.001,

@@ -23,6 +23,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
 
     const market: Market = {
       exchange: 'Bitstamp',
+      type: 'Spot',
       id: pair.url_symbol,
       pair: `${base}_${quote}`,
       base,
@@ -30,7 +31,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: base,
       quoteId: quote,
       active: pair.trading === 'Enabled',
-      marketType: 'Spot',
       // see https://www.bitstamp.net/fee-schedule/
       fees: {
         maker: 0.005,

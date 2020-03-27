@@ -25,6 +25,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
 
     const market: Market = {
       exchange: 'MXC',
+      type: 'Spot',
       id: key,
       pair: key,
       base,
@@ -32,7 +33,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: base,
       quoteId: quote,
       active: true,
-      marketType: 'Spot',
       // see https://www.mxc.com/intro/fees
       fees: {
         maker: 0.002,

@@ -36,6 +36,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   arr.forEach((p) => {
     const market: Market = {
       exchange: 'Huobi',
+      type: 'Spot',
       id: p.symbol,
       pair: extractNormalizedPair(p),
       base: normalizeSymbol(p['base-currency'], 'Huobi'),
@@ -43,7 +44,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: p['base-currency'],
       quoteId: p['quote-currency'],
       active: p.state === 'online',
-      marketType: 'Spot',
       // see https://www.huobi.com/en-us/fee/
       fees: {
         maker: 0.002,
@@ -87,6 +87,7 @@ export async function fetchFuturesMarkets(): Promise<readonly Market[]> {
 
   const result: Market[] = arr.map((p) => ({
     exchange: 'Huobi',
+    type: 'Futures',
     id: p.contract_code,
     pair: `${p.symbol}_USD`,
     base: p.symbol,
@@ -94,7 +95,6 @@ export async function fetchFuturesMarkets(): Promise<readonly Market[]> {
     baseId: p.symbol,
     quoteId: 'USD',
     active: p.contract_status === 1,
-    marketType: 'Futures',
     // see https://huobiglobal.zendesk.com/hc/en-us/articles/360000113122
     fees: {
       maker: 0.002,

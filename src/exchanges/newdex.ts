@@ -88,6 +88,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
 
     const market: Market = {
       exchange: 'Newdex',
+      type: 'Spot',
       id: pairInfo.pair_symbol,
       pair: `${baseSymbol}_${quoteSymbol}`,
       base: baseSymbol,
@@ -95,7 +96,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: baseSymbol,
       quoteId: quoteSymbol,
       active: pairInfo.status === 0,
-      marketType: 'Spot',
       // see https://newdex.zendesk.com/hc/en-us/articles/360015745751-Rate-standard
       fees: {
         maker: config.maker_fee,

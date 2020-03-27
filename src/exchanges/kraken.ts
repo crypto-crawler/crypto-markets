@@ -103,6 +103,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
 
     const market: Market = {
       exchange: 'CoinbasePro',
+      type: 'Spot',
       id,
       pair: `${base}_${quote}`,
       base,
@@ -110,7 +111,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: base,
       quoteId: quote,
       active: true,
-      marketType: 'Spot',
       // see https://support.kraken.com/hc/en-us/articles/360000526126-What-are-Maker-and-Taker-fees-
       fees: {
         maker: 0.0016,

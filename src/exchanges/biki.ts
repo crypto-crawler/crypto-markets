@@ -21,6 +21,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const result: Market[] = arr.map((pair) => {
     const market: Market = {
       exchange: 'Biki',
+      type: 'Spot',
       id: pair.symbol,
       pair: `${pair.base_coin}_${pair.count_coin}`,
       base: pair.base_coin,
@@ -28,7 +29,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: pair.base_coin,
       quoteId: pair.count_coin,
       active: true,
-      marketType: 'Spot',
       // see https://bikiuser.zendesk.com/hc/en-us/articles/360016487751-Announcement-on-canceling-the-free-trading-fee-for-four-trading-pairs
       fees: {
         maker: 0.0015,

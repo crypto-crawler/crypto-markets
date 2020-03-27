@@ -42,6 +42,7 @@ export async function fetchMarketsByType(marketType: MarketType): Promise<readon
   const result: Market[] = arr.map((p) => {
     const market: Market = {
       exchange: 'OKEx',
+      type: marketType,
       id: p.instrument_id,
       pair: `${p.base_currency}_${p.quote_currency}`,
       base: p.base_currency,
@@ -49,7 +50,6 @@ export async function fetchMarketsByType(marketType: MarketType): Promise<readon
       baseId: p.base_currency,
       quoteId: p.quote_currency,
       active: true,
-      marketType,
       fees: fees[marketType],
       precision: {
         price: -Math.log10(parseFloat(p.tick_size)),

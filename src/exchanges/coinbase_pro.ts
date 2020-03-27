@@ -30,6 +30,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const result: Market[] = arr.map((pair) => {
     const market: Market = {
       exchange: 'CoinbasePro',
+      type: 'Spot',
       id: pair.id,
       pair: `${pair.base_currency}_${pair.quote_currency}`,
       base: pair.base_currency,
@@ -37,7 +38,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: pair.base_currency,
       quoteId: pair.quote_currency,
       active: pair.status === 'online',
-      marketType: 'Spot',
       // see https://pro.coinbase.com/fees, https://pro.coinbase.com/orders/fees
       fees: {
         maker: 0.005,
