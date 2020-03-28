@@ -1,6 +1,6 @@
 {
   "name": "crypto-markets",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Get all trading pairs of a cryptocurrency exchange.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -41,7 +41,7 @@
   "homepage": "https://github.com/soulmachine/crypto-markets",
   "devDependencies": {
     "@types/jest": "^25.1.4",
-    "@types/node": "^13.9.3",
+    "@types/node": "^13.9.5",
     "@types/yargs": "^15.0.4",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "crypto-pair": "^0.1.5",
+    "crypto-pair": "^0.1.6",
     "eos-utils": "^0.1.8",
     "promise.any": "^2.0.1",
     "yargs": "^15.3.1"
