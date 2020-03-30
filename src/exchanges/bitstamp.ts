@@ -42,7 +42,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
         quote: pair.counter_decimals,
       },
       minQuantity: {
-        base: 0,
         quote: parseFloat(pair.minimum_order.split(' ')[0]),
       },
       info: pair,

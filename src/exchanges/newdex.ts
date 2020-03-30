@@ -107,7 +107,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
         quote: parseInt(pairInfo.quote_symbol.sym.split(',')[0], 10),
       },
       minQuantity: {
-        quote: 0.01, // TODO
+        quote: 0.01, // for EOS
       },
       info: pairInfo,
     };

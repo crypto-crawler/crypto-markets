@@ -39,7 +39,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
         base: pair.amount_precision,
       },
       minQuantity: {
-        base: 0, // TODO
         quote: parseFloat(pair.limit_volume_min),
       },
       info: pair,

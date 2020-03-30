@@ -102,7 +102,10 @@ export async function fetchFuturesMarkets(): Promise<readonly Market[]> {
     },
     precision: {
       price: -Math.log10(p.price_tick),
-      base: -1,
+      base: -1, // TODO
+    },
+    minQuantity: {
+      quote: p.symbol === 'BTC' ? 100 : 10,
     },
     info: p,
   }));

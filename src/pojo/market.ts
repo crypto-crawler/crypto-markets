@@ -24,7 +24,7 @@ export interface Market {
     quote?: number; // very few exchanges actually have it
   };
   // minimum quantity when placing orders
-  minQuantity?: {
+  minQuantity: {
     base?: number;
     quote?: number;
   };

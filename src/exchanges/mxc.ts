@@ -41,10 +41,8 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       precision: {
         price: pairInfo.priceScale,
         base: pairInfo.quantityScale,
-        quote: pairInfo.priceScale,
       },
       minQuantity: {
-        base: 0,
         quote: pairInfo.minAmount,
       },
       info: pairInfo,
