@@ -16,10 +16,38 @@ interface WhaleExPairInfo {
   enable: boolean;
   status: 'ON' | 'OFF';
   baseContract: string;
+  quoteContract: string;
   tickSize: string;
   lotSize: string;
   minQty: string;
   minNotional: string;
+}
+
+async function populateQuoteContract(pairInfos: WhaleExPairInfo[]): Promise<void> {
+  const response = await axios.get(`https://${RESTFUL_API_DOMAIN}/BUSINESS/api/public/currency`);
+  assert.equal(response.status, 200);
+  assert.equal(response.statusText, 'OK');
+
+  type CurrencyInfo = {
+    shortName: string;
+    token: string;
+    contract: string;
+    quotable: boolean;
+    visible: boolean;
+    status: string;
+  };
+  const arr = (response.data as Array<CurrencyInfo>).filter(
+    (x) => x.quotable && x.visible && x.status === 'ON',
+  );
+
+  const map = new Map<string, string>();
+  arr.forEach((x) => {
+    // assert.equal(x.shortName, x.token); // e.g., BTC, EBTC
+    map.set(x.shortName, x.contract);
+  });
+  pairInfos.forEach((pairInfo) => {
+    pairInfo.quoteContract = map.get(pairInfo.quoteCurrency)!; // eslint-disable-line no-param-reassign
+  });
 }
 
 export async function fetchSpotMarkets(): Promise<readonly Market[]> {
@@ -28,6 +56,8 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   assert.equal(response.statusText, 'OK');
 
   const arr = response.data as Array<WhaleExPairInfo>;
+
+  await populateQuoteContract(arr);
 
   const markets: Market[] = arr.map((pairInfo) => {
     const baseSymbol = pairInfo.baseCurrency === 'KEY' ? 'MYKEY' : pairInfo.baseCurrency;
