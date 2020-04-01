@@ -1,8 +1,28 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 import yargs from 'yargs';
-import fetchMarkets, { MARKET_TYPES, SupportedExchange, SUPPORTED_EXCHANGES } from './index';
+import fetchMarkets, { MARKET_TYPES } from './index';
 import { MarketType } from './pojo/market';
+
+const SUPPORTED_EXCHANGES = [
+  'Biki',
+  'Binance',
+  'Bitfinex',
+  'Bitstamp',
+  'CoinbasePro',
+  'Coincheck',
+  'Huobi',
+  'Kraken',
+  'MXC',
+  'Newdex',
+  'OKEx',
+  'Poloniex',
+  'Upbit',
+  'WhaleEx',
+  'Zaif',
+  'ZB',
+  'bitFlyer',
+];
 
 const { argv } = yargs
   // eslint-disable-next-line no-shadow
@@ -22,9 +42,6 @@ const { argv } = yargs
   });
 
 (async (): Promise<void> => {
-  const result = await fetchMarkets(
-    argv.exchange as SupportedExchange,
-    argv.marketType as MarketType,
-  );
+  const result = await fetchMarkets(argv.exchange as string, argv.marketType as MarketType);
   console.info(result);
 })();

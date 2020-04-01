@@ -10,10 +10,8 @@ import * as Newdex from './exchanges/newdex';
 import * as OKEx from './exchanges/okex';
 import * as WhaleEx from './exchanges/whaleex';
 import { Market, MarketType } from './pojo/market';
-import { SupportedExchange } from './pojo/supported_exchange';
 
 export { Market, MarketType, MARKET_TYPES } from './pojo/market';
-export { SupportedExchange, SUPPORTED_EXCHANGES } from './pojo/supported_exchange';
 
 /**
  * Fetch trading markets of a crypto exchange.
@@ -22,7 +20,7 @@ export { SupportedExchange, SUPPORTED_EXCHANGES } from './pojo/supported_exchang
  * @returns All trading markets
  */
 export default async function fetchMarkets(
-  exchange: SupportedExchange,
+  exchange: string,
   marketType?: MarketType,
 ): Promise<readonly Market[]> {
   switch (exchange) {

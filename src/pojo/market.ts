@@ -1,10 +1,8 @@
-import { SupportedExchange } from './supported_exchange';
-
 export const MARKET_TYPES = ['Spot', 'Futures', 'Swap', 'Option'] as const;
 export type MarketType = typeof MARKET_TYPES[number];
 
 export interface Market {
-  exchange: SupportedExchange; // exchange name
+  exchange: string; // exchange name
   type: MarketType;
   id: string; // exchange-specific pair of trading currencies if Spot, or raw symbol if Fetures, Swap, Option
   pair: string; // unified pair of trading currencies, e.g., BTC_USDT
