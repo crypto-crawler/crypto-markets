@@ -58,35 +58,37 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
     margin: boolean;
   }>;
 
-  const result: Market[] = arr.map((pair) => {
-    const [baseSymbol, quoteSymbol] = extractNormalizedPair(pair.pair, mapping);
+  const result: Market[] = arr
+    .map((pair) => {
+      const [baseSymbol, quoteSymbol] = extractNormalizedPair(pair.pair, mapping);
 
-    const market: Market = {
-      exchange: 'Bitfinex',
-      type: pair.pair.endsWith(':ustf0') ? 'Futures' : 'Spot',
-      id: pair.pair,
-      pair: `${baseSymbol}_${quoteSymbol}`,
-      base: baseSymbol,
-      quote: quoteSymbol,
-      baseId: baseSymbol,
-      quoteId: quoteSymbol,
-      active: true,
-      // see https://www.bitfinex.com/fees
-      fees: {
-        maker: 0.001,
-        taker: 0.002,
-      },
-      precision: {
-        price: pair.price_precision,
-        base: 8, // see https://github.com/bitfinexcom/bfx-api-node-util/blob/master/lib/precision.js
-      },
-      minQuantity: { base: parseFloat(pair.minimum_order_size) },
-      info: pair,
-    };
-    assert.equal(market.pair, normalizePair(market.id, 'Bitfinex'));
+      const market: Market = {
+        exchange: 'Bitfinex',
+        type: pair.pair.endsWith(':ustf0') ? 'Futures' : 'Spot',
+        id: pair.pair,
+        pair: `${baseSymbol}_${quoteSymbol}`,
+        base: baseSymbol,
+        quote: quoteSymbol,
+        baseId: baseSymbol,
+        quoteId: quoteSymbol,
+        active: true,
+        // see https://www.bitfinex.com/fees
+        fees: {
+          maker: 0.001,
+          taker: 0.002,
+        },
+        precision: {
+          price: pair.price_precision,
+          base: 8, // see https://github.com/bitfinexcom/bfx-api-node-util/blob/master/lib/precision.js
+        },
+        minQuantity: { base: parseFloat(pair.minimum_order_size) },
+        info: pair,
+      };
+      assert.equal(market.pair, normalizePair(market.id, 'Bitfinex'));
 
-    return market;
-  });
+      return market;
+    })
+    .sort((x, y) => x.pair.localeCompare(y.pair));
 
   return marketType ? result.filter((x) => x.type === marketType) : result;
 }

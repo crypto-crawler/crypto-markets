@@ -106,7 +106,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
     return market;
   });
 
-  return markets;
+  return markets.sort((x, y) => x.pair.localeCompare(y.pair));
 }
 
 export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {
