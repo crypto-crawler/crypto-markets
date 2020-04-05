@@ -102,7 +102,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
     const [base, quote] = extractNormalizedPair(pair);
 
     const market: Market = {
-      exchange: 'CoinbasePro',
+      exchange: 'Kraken',
       type: 'Spot',
       id,
       pair: `${base}_${quote}`,
