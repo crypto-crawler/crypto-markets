@@ -1,6 +1,6 @@
 {
   "name": "crypto-markets",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Get all trading pairs of a cryptocurrency exchange.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "crypto-pair": "^0.1.6",
+    "crypto-pair": "^0.1.7",
     "eos-utils": "^0.1.8",
     "promise.any": "^2.0.1",
     "yargs": "^15.3.1"
