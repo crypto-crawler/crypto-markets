@@ -50,3 +50,17 @@ export default async function fetchMarkets(
       throw new Error(`Unknown exchange: ${exchange}`);
   }
 }
+
+export const SUPPORTED_EXCHANGES = [
+  'Biki',
+  'Binance',
+  'Bitfinex',
+  'Bitstamp',
+  'CoinbasePro',
+  'Huobi',
+  'Kraken',
+  'MXC',
+  'Newdex',
+  'OKEx',
+  'WhaleEx',
+];

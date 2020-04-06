@@ -1,4 +1,5 @@
 import { strict as assert } from 'assert';
+import Axios from 'axios';
 import { normalizePair } from 'crypto-pair';
 import { EOS_API_ENDPOINTS, getTableRows, TableRows } from 'eos-utils';
 import { Market, MarketType } from '../pojo/market';
@@ -63,6 +64,54 @@ async function getGlobalConfig(): Promise<{
   return result;
 }
 
+// For repeated pairs, for example, bitpietokens-eeth-eos and
+// ethsidechain-eeth-eos both has the same pair EETH_EOS, choose
+// the one with larger trading volume
+async function removePairByVolume(): Promise<readonly string[]> {
+  // Get 24 hour volume
+  const response = await Axios.get('https://api.newdex.io/v1/tickers');
+
+  assert.equal(response.status, 200);
+  assert.equal(response.data.code, 200);
+
+  interface Ticker24hr {
+    pair: string;
+    symbol: string;
+    contract: string;
+    currency: string;
+    last: number;
+    change: number;
+    high: number;
+    low: number;
+    amount: number;
+    volume: number;
+  }
+
+  const arr = response.data.data as ReadonlyArray<Ticker24hr>;
+
+  arr.forEach((x) => {
+    x.pair = normalizePair(x.symbol, 'Newdex'); // eslint-disable-line no-param-reassign
+  });
+
+  const pairTickers: { [key: string]: Ticker24hr[] } = {};
+  arr.forEach((x) => {
+    if (!(x.pair in pairTickers)) pairTickers[x.pair] = [];
+    pairTickers[x.pair].push(x);
+  });
+
+  const toBeRemoved: string[] = [];
+
+  Object.keys(pairTickers).forEach((pair) => {
+    const tickers = pairTickers[pair].sort((x, y) => x.volume - y.volume);
+    if (tickers.length <= 1) return;
+
+    const removed = tickers.slice(0, tickers.length - 1).map((x) => x.symbol);
+    toBeRemoved.push(...removed);
+  });
+
+  return arr.map((x) => x.symbol).filter((x) => !toBeRemoved.includes(x));
+}
+
 export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const arr: NewdexPairInfo[] = [];
   let more = true;
@@ -80,6 +129,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   }
 
   const config = await getGlobalConfig();
+  const marketWithVolume = await removePairByVolume();
 
   const result: Market[] = arr.map((pairInfo) => {
     let baseSymbol = pairInfo.base_symbol.sym.split(',')[1];
@@ -116,7 +166,9 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
     return market;
   });
 
-  return result.sort((x, y) => x.pair.localeCompare(y.pair));
+  return result
+    .filter((x) => marketWithVolume.includes(x.id))
+    .sort((x, y) => x.pair.localeCompare(y.pair));
 }
 
 export async function fetchMarkets(marketType?: MarketType): Promise<readonly Market[]> {

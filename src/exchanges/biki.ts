@@ -1,6 +1,7 @@
 import { strict as assert } from 'assert';
 import axios from 'axios';
 import { normalizePair } from 'crypto-pair';
+import _ from 'lodash';
 import { Market, MarketType } from '../pojo/market';
 
 export async function fetchSpotMarkets(): Promise<readonly Market[]> {
@@ -9,14 +10,17 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   assert.equal(response.data.code, '0');
   assert.equal(response.data.msg, 'suc');
 
-  const arr = response.data.data as ReadonlyArray<{
-    symbol: string;
-    count_coin: string;
-    amount_precision: number;
-    base_coin: string;
-    limit_volume_min: string;
-    price_precision: number;
-  }>;
+  const arr = _.uniqWith(
+    response.data.data as ReadonlyArray<{
+      symbol: string;
+      count_coin: string;
+      amount_precision: number;
+      base_coin: string;
+      limit_volume_min: string;
+      price_precision: number;
+    }>,
+    _.isEqual,
+  );
 
   const result: Market[] = arr.map((pair) => {
     const market: Market = {
