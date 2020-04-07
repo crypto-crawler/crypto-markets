@@ -87,6 +87,8 @@ export async function fetchMarketsByType(marketType: MarketType): Promise<readon
         throw new Error(`Unknown marketType: ${marketType}`);
     }
 
+    delete market.info.delivery;
+
     return market;
   });
 
