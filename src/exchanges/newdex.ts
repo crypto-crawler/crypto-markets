@@ -49,14 +49,12 @@ async function getGlobalConfig(): Promise<{
   const tableRows = await getTableRowsRobust('globalconfig');
   assert.ok(!tableRows.more);
 
-  const arr =
-    tableRows.rows as
-    Array<{
-      global_id: number;
-      key: string;
-      value: string;
-      memo: string;
-    }>;
+  const arr = tableRows.rows as Array<{
+    global_id: number;
+    key: string;
+    value: string;
+    memo: string;
+  }>;
 
   const result = {
     status: arr[1].value === '1', // 交易所运行状态(1-正常，0-维护)

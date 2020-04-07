@@ -74,18 +74,16 @@ export async function fetchFuturesMarkets(): Promise<readonly Market[]> {
   assert.equal(response.status, 200);
   assert.equal(response.data.status, 'ok');
 
-  const arr =
-    response.data.data as
-    ReadonlyArray<{
-      symbol: string;
-      contract_code: string;
-      contract_type: string;
-      contract_size: number;
-      price_tick: number;
-      delivery_date: string;
-      create_date: string;
-      contract_status: number;
-    }>;
+  const arr = response.data.data as ReadonlyArray<{
+    symbol: string;
+    contract_code: string;
+    contract_type: string;
+    contract_size: number;
+    price_tick: number;
+    delivery_date: string;
+    create_date: string;
+    contract_status: number;
+  }>;
 
   const result: Market[] = arr.map((p) => ({
     exchange: 'Huobi',

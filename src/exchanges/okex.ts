@@ -28,18 +28,16 @@ export async function fetchMarketsByType(marketType: MarketType): Promise<readon
   );
   assert.equal(response.status, 200);
 
-  const arr =
-    response.data as
-    Array<{
-      base_currency: string;
-      instrument_id: string;
-      min_size: string;
-      quote_currency: string;
-      size_increment: string;
-      trade_increment: string;
-      tick_size: string;
-      contract_val: string;
-    }>;
+  const arr = response.data as Array<{
+    base_currency: string;
+    instrument_id: string;
+    min_size: string;
+    quote_currency: string;
+    size_increment: string;
+    trade_increment: string;
+    tick_size: string;
+    contract_val: string;
+  }>;
 
   const result: Market[] = arr.map((p) => {
     const market: Market = {

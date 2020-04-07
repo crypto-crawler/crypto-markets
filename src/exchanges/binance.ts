@@ -9,19 +9,16 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
 
-  const arr = (
-    response.data.symbols as
-    ReadonlyArray<{
-      symbol: string;
-      status: string;
-      baseAsset: string;
-      baseAssetPrecision: number;
-      quoteAsset: string;
-      quotePrecision: number;
-      isSpotTradingAllowed: boolean;
-      filters: ReadonlyArray<{ filterType: string; [key: string]: string | number }>;
-    }>
-  ).filter((x) => x.isSpotTradingAllowed);
+  const arr = (response.data.symbols as ReadonlyArray<{
+    symbol: string;
+    status: string;
+    baseAsset: string;
+    baseAssetPrecision: number;
+    quoteAsset: string;
+    quotePrecision: number;
+    isSpotTradingAllowed: boolean;
+    filters: ReadonlyArray<{ filterType: string; [key: string]: string | number }>;
+  }>).filter((x) => x.isSpotTradingAllowed);
 
   const result: Market[] = arr.map((pair) => {
     pair.filters.forEach((f) => {
@@ -75,23 +72,21 @@ export async function fetchSwapMarkets(): Promise<readonly Market[]> {
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
 
-  const arr =
-    response.data.symbols as
-    ReadonlyArray<{
-      symbol: string;
-      status: string;
-      maintMarginPercent: string;
-      requiredMarginPercent: string;
-      baseAsset: string;
-      quoteAsset: string;
-      pricePrecision: number;
-      quantityPrecision: number;
-      baseAssetPrecision: number;
-      quotePrecision: number;
-      filters: ReadonlyArray<{ filterType: string; [key: string]: string | number }>;
-      orderTypes: string[];
-      timeInForce: string;
-    }>;
+  const arr = response.data.symbols as ReadonlyArray<{
+    symbol: string;
+    status: string;
+    maintMarginPercent: string;
+    requiredMarginPercent: string;
+    baseAsset: string;
+    quoteAsset: string;
+    pricePrecision: number;
+    quantityPrecision: number;
+    baseAssetPrecision: number;
+    quotePrecision: number;
+    filters: ReadonlyArray<{ filterType: string; [key: string]: string | number }>;
+    orderTypes: string[];
+    timeInForce: string;
+  }>;
 
   const result: Market[] = arr.map((pair) => {
     pair.filters.forEach((f) => {

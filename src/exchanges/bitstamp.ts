@@ -8,17 +8,15 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   assert.equal(response.status, 200);
   assert.equal(response.statusText, 'OK');
 
-  const arr =
-    response.data as
-    ReadonlyArray<{
-      base_decimals: number;
-      minimum_order: string;
-      name: string;
-      counter_decimals: number;
-      trading: string;
-      url_symbol: string;
-      description: string;
-    }>;
+  const arr = response.data as ReadonlyArray<{
+    base_decimals: number;
+    minimum_order: string;
+    name: string;
+    counter_decimals: number;
+    trading: string;
+    url_symbol: string;
+    description: string;
+  }>;
 
   const result: Market[] = arr.map((pair) => {
     const [base, quote] = pair.name.split('/');

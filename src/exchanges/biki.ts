@@ -11,15 +11,14 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   assert.equal(response.data.msg, 'suc');
 
   const arr = _.uniqWith(
-    response.data.data as
-      ReadonlyArray<{
-        symbol: string;
-        count_coin: string;
-        amount_precision: number;
-        base_coin: string;
-        limit_volume_min: string;
-        price_precision: number;
-      }>,
+    response.data.data as ReadonlyArray<{
+      symbol: string;
+      count_coin: string;
+      amount_precision: number;
+      base_coin: string;
+      limit_volume_min: string;
+      price_precision: number;
+    }>,
     _.isEqual,
   );
 

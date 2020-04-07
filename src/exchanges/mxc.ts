@@ -8,17 +8,15 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   assert.equal(response.status, 200);
   assert.equal(response.data.code, 200);
 
-  const data =
-    response.data.data as
-    {
-      [key: string]: {
-        priceScale: number;
-        quantityScale: number;
-        minAmount: number;
-        buyFeeRate: number;
-        sellFeeRate: number;
-      };
+  const data = response.data.data as {
+    [key: string]: {
+      priceScale: number;
+      quantityScale: number;
+      minAmount: number;
+      buyFeeRate: number;
+      sellFeeRate: number;
     };
+  };
 
   const result: Market[] = [];
   Object.keys(data).forEach((key) => {
