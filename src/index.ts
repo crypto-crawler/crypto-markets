@@ -9,6 +9,7 @@ import * as MXC from './exchanges/mxc';
 import * as Newdex from './exchanges/newdex';
 import * as OKEx from './exchanges/okex';
 import * as WhaleEx from './exchanges/whaleex';
+import * as ZB from './exchanges/zb';
 import { Market, MarketType } from './pojo/market';
 
 export { Market, MarketType, MARKET_TYPES } from './pojo/market';
@@ -46,6 +47,8 @@ export default async function fetchMarkets(
       return OKEx.fetchMarkets(marketType);
     case 'WhaleEx':
       return WhaleEx.fetchMarkets(marketType);
+    case 'ZB':
+      return ZB.fetchMarkets(marketType);
     default:
       throw new Error(`Unknown exchange: ${exchange}`);
   }
@@ -63,4 +66,5 @@ export const SUPPORTED_EXCHANGES = [
   'Newdex',
   'OKEx',
   'WhaleEx',
+  'ZB',
 ];

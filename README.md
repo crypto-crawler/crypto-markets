@@ -50,3 +50,4 @@ export default function fetchMarkets(
 - Newdex
 - OKEx
 - WhaleEx
+- ZB
