@@ -95,10 +95,53 @@ export async function fetchFuturesMarkets(): Promise<readonly Market[]> {
     baseId: p.symbol,
     quoteId: 'USD',
     active: p.contract_status === 1,
-    // see https://huobiglobal.zendesk.com/hc/en-us/articles/360000113122
+    // see https://huobiglobal.zendesk.com/hc/en-us/articles/360000113122-Futures-Trading-Fees
     fees: {
       maker: 0.002,
       taker: 0.003,
+    },
+    precision: {
+      price: -Math.log10(p.price_tick),
+      base: -1, // TODO
+    },
+    minQuantity: {
+      quote: p.symbol === 'BTC' ? 100 : 10,
+    },
+    info: p,
+  }));
+
+  return result.sort((x, y) => x.pair.localeCompare(y.pair));
+}
+
+export async function fetchSwapMarkets(): Promise<readonly Market[]> {
+  const response = await Axios.get('https://api.hbdm.com/swap-api/v1/swap_contract_info');
+  assert.equal(response.status, 200);
+  assert.equal(response.data.status, 'ok');
+
+  const arr = response.data.data as ReadonlyArray<{
+    symbol: string;
+    contract_code: string;
+    contract_size: number;
+    price_tick: number;
+    create_date: string;
+    contract_status: number;
+    settlement_date: string;
+  }>;
+
+  const result: Market[] = arr.map((p) => ({
+    exchange: 'Huobi',
+    type: 'Swap',
+    id: p.contract_code,
+    pair: `${p.symbol}_USD`,
+    base: p.symbol,
+    quote: 'USD',
+    baseId: p.symbol,
+    quoteId: 'USD',
+    active: p.contract_status === 1,
+    // see https://huobiglobal.zendesk.com/hc/en-us/articles/900000104346-Perpetual-Swap-Trading-Fees
+    fees: {
+      maker: 0.002,
+      taker: 0.004,
     },
     precision: {
       price: -Math.log10(p.price_tick),
@@ -120,12 +163,15 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
         return fetchSpotMarkets();
       case 'Futures':
         return fetchFuturesMarkets();
+      case 'Swap':
+        return fetchSwapMarkets();
       default:
         throw new Error(`Unkown marketType ${marketType}`);
     }
   }
   const spot = await fetchSpotMarkets();
   const futures = await fetchFuturesMarkets();
+  const swap = await fetchSwapMarkets();
 
-  return spot.concat(futures);
+  return spot.concat(futures).concat(swap);
 }
