@@ -63,6 +63,8 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
 
     assert.equal(market.pair, normalizePair(market.id, 'Huobi'));
 
+    delete market.info['max-order-amt'];
+
     result.push(market);
   });
 
