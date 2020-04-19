@@ -1,6 +1,7 @@
 import * as Biki from './exchanges/biki';
 import * as Binance from './exchanges/binance';
 import * as Bitfinex from './exchanges/bitfinex';
+import * as BitMEX from './exchanges/bitmex';
 import * as Bitstamp from './exchanges/bitstamp';
 import * as CoinbasePro from './exchanges/coinbase_pro';
 import * as Huobi from './exchanges/huobi';
@@ -31,6 +32,8 @@ export default async function fetchMarkets(
       return Binance.fetchMarkets(marketType);
     case 'Bitfinex':
       return Bitfinex.fetchMarkets(marketType);
+    case 'BitMEX':
+      return BitMEX.fetchMarkets(marketType);
     case 'Bitstamp':
       return Bitstamp.fetchMarkets(marketType);
     case 'CoinbasePro':
@@ -58,6 +61,7 @@ export const SUPPORTED_EXCHANGES = [
   'Biki',
   'Binance',
   'Bitfinex',
+  'BitMEX',
   'Bitstamp',
   'CoinbasePro',
   'Huobi',

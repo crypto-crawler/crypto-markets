@@ -13,7 +13,7 @@ export function mergeMarkets(
   });
 }
 
-export function calcPrecision(numberStr: string): number {
-  const n = -Math.log10(parseFloat(numberStr));
+export function calcPrecision(number: string | number): number {
+  const n = -Math.log10(typeof number === 'string' ? parseFloat(number) : (number as number));
   return n === 0 ? 0 : n;
 }
