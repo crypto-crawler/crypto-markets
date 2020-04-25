@@ -35,7 +35,7 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
       baseId: base,
       quoteId: quote,
       active: true,
-      // see https://www.mxc.com/intro/fees
+      // see https://www.mxc.com/info/fee
       fees: {
         maker: 0.002,
         taker: 0.002,
