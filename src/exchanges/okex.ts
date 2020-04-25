@@ -2,6 +2,8 @@ import { strict as assert } from 'assert';
 import Axios from 'axios';
 import { Market, MarketType } from '../pojo/market';
 
+// doc: https://www.okex.com/docs/en/
+
 // see https://www.okex.com/pages/products/fees.html
 const fees = {
   Spot: {

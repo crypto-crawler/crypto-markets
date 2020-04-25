@@ -4,6 +4,8 @@ import { normalizePair } from 'crypto-pair';
 import { EOS_API_ENDPOINTS, getTableRows, TableRows } from 'eos-utils';
 import { Market, MarketType } from '../pojo/market';
 
+// doc: https://github.com/newdex/api-docs
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const promiseAny = require('promise.any');
 

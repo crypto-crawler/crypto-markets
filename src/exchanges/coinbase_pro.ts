@@ -4,6 +4,8 @@ import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 import { calcPrecision } from '../utils';
 
+// doc: https://docs.pro.coinbase.com/
+
 export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await axios.get('https://api.pro.coinbase.com/products');
   assert.equal(response.status, 200);

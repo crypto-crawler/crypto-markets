@@ -3,6 +3,8 @@ import axios from 'axios';
 import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 
+// doc: https://www.kraken.com/features/api
+
 // https://support.kraken.com/hc/en-us/articles/205893708-Minimum-order-size-volume-
 const MIN_BASE_QUANTITY: { [key: string]: number } = {
   ADA: 1,

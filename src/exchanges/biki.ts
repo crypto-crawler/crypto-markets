@@ -4,6 +4,8 @@ import { normalizePair } from 'crypto-pair';
 import _ from 'lodash';
 import { Market, MarketType } from '../pojo/market';
 
+// doc: https://github.com/code-biki/open-api
+
 export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await axios.get('https://openapi.biki.com/open/api/common/symbols');
   assert.equal(response.status, 200);

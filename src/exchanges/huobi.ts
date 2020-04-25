@@ -3,6 +3,8 @@ import Axios from 'axios';
 import { normalizePair, normalizeSymbol } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 
+// doc: https://huobiapi.github.io/docs/spot/v1/en/
+
 interface HuobiPairInfo {
   'base-currency': string;
   'quote-currency': string;

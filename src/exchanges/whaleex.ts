@@ -4,6 +4,8 @@ import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 import { calcPrecision } from '../utils';
 
+// doc: https://github.com/WhaleEx/API
+
 const RESTFUL_API_DOMAIN = 'api.whaleex.com';
 
 interface WhaleExPairInfo {

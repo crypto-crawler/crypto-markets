@@ -3,6 +3,8 @@ import axios from 'axios';
 import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 
+// doc: https://docs.bitfinex.com/docs
+
 async function getNameMapping(): Promise<{ [key: string]: string }> {
   const response = await axios.get('https://api-pub.bitfinex.com/v2/conf/pub:map:currency:sym');
   const arr = response.data[0] as [string, string][];

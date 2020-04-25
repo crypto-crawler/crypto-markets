@@ -4,6 +4,8 @@ import { normalizePair, normalizeSymbol } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 import { calcPrecision } from '../utils';
 
+// doc: https://www.bitmex.com/api/explorer/
+
 // see https://bitmexapi.com/
 interface Instrument {
   symbol: string;

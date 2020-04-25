@@ -4,6 +4,8 @@ import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 import { calcPrecision } from '../utils';
 
+// doc: https://github.com/binance-exchange/binance-official-api-docs
+
 export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await Axios.get('https://api.binance.com/api/v3/exchangeInfo');
   assert.equal(response.status, 200);

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { normalizePair } from 'crypto-pair';
 import { Market, MarketType } from '../pojo/market';
 
+// doc: https://github.com/mxcdevelop/APIDoc
+
 export async function fetchSpotMarkets(): Promise<readonly Market[]> {
   const response = await axios.get('https://www.mxc.com/open/api/v1/data/markets_info');
   assert.equal(response.status, 200);
