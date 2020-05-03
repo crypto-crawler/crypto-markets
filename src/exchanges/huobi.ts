@@ -65,8 +65,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
 
     assert.equal(market.pair, normalizePair(market.id, 'Huobi'));
 
-    delete market.info['max-order-amt'];
-
     result.push(market);
   });
 
@@ -101,8 +99,8 @@ export async function fetchFuturesMarkets(): Promise<readonly Market[]> {
     active: p.contract_status === 1,
     // see https://huobiglobal.zendesk.com/hc/en-us/articles/360000113122-Futures-Trading-Fees
     fees: {
-      maker: 0.002,
-      taker: 0.003,
+      maker: 0.0002,
+      taker: 0.0003,
     },
     precision: {
       price: -Math.log10(p.price_tick),
@@ -144,8 +142,8 @@ export async function fetchSwapMarkets(): Promise<readonly Market[]> {
     active: p.contract_status === 1,
     // see https://huobiglobal.zendesk.com/hc/en-us/articles/900000104346-Perpetual-Swap-Trading-Fees
     fees: {
-      maker: 0.002,
-      taker: 0.004,
+      maker: 0.0002,
+      taker: 0.0004,
     },
     precision: {
       price: -Math.log10(p.price_tick),

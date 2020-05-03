@@ -18,15 +18,12 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
     baseAssetPrecision: number;
     quoteAsset: string;
     quotePrecision: number;
+    quoteAssetPrecision: number;
     isSpotTradingAllowed: boolean;
     filters: ReadonlyArray<{ filterType: string; [key: string]: string | number }>;
   }>).filter((x) => x.isSpotTradingAllowed);
 
   const result: Market[] = arr.map((pair) => {
-    pair.filters.forEach((f) => {
-      delete f.maxQty; // eslint-disable-line no-param-reassign
-    });
-
     const market: Market = {
       exchange: 'Binance',
       type: 'Spot',

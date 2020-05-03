@@ -165,8 +165,6 @@ export async function fetchSpotMarkets(): Promise<readonly Market[]> {
     };
     assert.equal(market.pair, normalizePair(market.id, 'Newdex'));
 
-    delete market.info.current_price;
-
     return market;
   });
 
