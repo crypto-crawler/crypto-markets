@@ -88,10 +88,6 @@ export async function fetchSwapMarkets(): Promise<readonly Market[]> {
   }>;
 
   const result: Market[] = arr.map((pair) => {
-    pair.filters.forEach((f) => {
-      delete f.maxQty; // eslint-disable-line no-param-reassign
-    });
-
     const market: Market = {
       exchange: 'Binance',
       type: 'Swap', // see https://binance.zendesk.com/hc/en-us/articles/360033524991-Differences-Between-a-Perpetual-Contract-and-a-Traditional-Futures-Contract
