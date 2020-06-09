@@ -66,7 +66,7 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
 
       const market: Market = {
         exchange: 'Bitfinex',
-        type: pair.pair.endsWith(':ustf0') ? 'Futures' : 'Spot',
+        type: pair.pair.endsWith(':ustf0') ? 'Swap' : 'Spot',
         id: pair.pair,
         pair: `${baseSymbol}_${quoteSymbol}`,
         base: baseSymbol,
