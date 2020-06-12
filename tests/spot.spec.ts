@@ -1,5 +1,9 @@
 import fetchMarkets, { SUPPORTED_EXCHANGES } from '../src/index';
 
+beforeAll(async () => {
+  jest.setTimeout(20 * 1000);
+});
+
 describe('market.pair and market.id should be unique in Spot market', () => {
   test.each(SUPPORTED_EXCHANGES)('%p', async (exchange) => {
     const markets = await fetchMarkets(exchange, 'Spot');
