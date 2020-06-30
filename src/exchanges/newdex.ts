@@ -92,7 +92,7 @@ async function removePairByVolume(): Promise<readonly string[]> {
   const arr = response.data.data as ReadonlyArray<Ticker24hr>;
 
   arr.forEach((x) => {
-    x.pair = normalizePair(x.symbol, 'Newdex'); // eslint-disable-line no-param-reassign
+    x.pair = normalizePair(x.symbol, 'Newdex')!; // eslint-disable-line no-param-reassign
   });
 
   const pairTickers: { [key: string]: Ticker24hr[] } = {};

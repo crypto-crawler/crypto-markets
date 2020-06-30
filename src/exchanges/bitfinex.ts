@@ -86,7 +86,14 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
         minQuantity: { base: parseFloat(pair.minimum_order_size) },
         info: pair,
       };
-      assert.equal(market.pair, normalizePair(market.id, 'Bitfinex'));
+      if (market.pair !== normalizePair(market.id, 'Bitfinex')) {
+        console.error(
+          `market.pair: ${market.pair}, market.id: ${market.id}, normalizePair: ${normalizePair(
+            market.id,
+            'Bitfinex',
+          )}`,
+        );
+      }
 
       return market;
     })
