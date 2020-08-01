@@ -1,6 +1,6 @@
 {
   "name": "crypto-markets",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Get all trading pairs of a cryptocurrency exchange.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -40,31 +40,31 @@
   },
   "homepage": "https://github.com/soulmachine/crypto-markets",
   "devDependencies": {
-    "@types/jest": "^26.0.3",
-    "@types/lodash": "^4.14.157",
-    "@types/node": "^14.0.14",
+    "@types/jest": "^26.0.8",
+    "@types/lodash": "^4.14.158",
+    "@types/node": "^14.0.27",
     "@types/yargs": "^15.0.5",
-    "@typescript-eslint/eslint-plugin": "^3.5.0",
-    "@typescript-eslint/parser": "^3.5.0",
-    "eslint": "^7.3.1",
+    "@typescript-eslint/eslint-plugin": "^3.7.1",
+    "@typescript-eslint/parser": "^3.7.1",
+    "eslint": "^7.6.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^23.17.1",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-markdown": "^1.0.2",
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.2.5",
-    "jest": "^26.1.0",
+    "jest": "^26.2.2",
     "prettier": "^2.0.5",
-    "ts-jest": "^26.1.1",
-    "typescript": "^3.9.5"
+    "ts-jest": "^26.1.4",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "crypto-pair": "^0.3.4",
+    "crypto-pair": "^0.3.5",
     "eos-utils": "^0.1.8",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "promise.any": "^2.0.1",
-    "yargs": "^15.3.1"
+    "yargs": "^15.4.1"
   }
 }

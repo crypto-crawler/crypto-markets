@@ -49,7 +49,7 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
   assert.equal(response.statusText, 'OK');
 
   const mapping = await getNameMapping();
-  const arr = response.data as ReadonlyArray<{
+  const arr = (response.data as ReadonlyArray<{
     pair: string;
     price_precision: number;
     initial_margin: string;
@@ -58,7 +58,7 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
     minimum_order_size: string;
     expiration: string;
     margin: boolean;
-  }>;
+  }>).filter((x) => !x.pair.startsWith('test'));
 
   const result: Market[] = arr
     .map((pair) => {
