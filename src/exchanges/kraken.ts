@@ -40,6 +40,24 @@ const MIN_BASE_QUANTITY: { [key: string]: number } = {
   ZEC: 0.03,
 };
 
+interface KrakenPairInfo {
+  altname: string;
+  wsname: string;
+  aclass_base: string;
+  base: string;
+  aclass_quote: string;
+  quote: string;
+  lot: string;
+  pair_decimals: number;
+  lot_decimals: number;
+  lot_multiplier: number;
+  fees: number[][];
+  fees_maker: number[][];
+  fee_volume_currency: string;
+  margin_call: number;
+  margin_stop: number;
+}
+
 function safeCurrencyCode(currencyId: string): string {
   let result = currencyId;
   if (currencyId.length > 3) {
@@ -67,24 +85,6 @@ function extractNormalizedPair(pairInfo: KrakenPairInfo): [string, string] {
   assert.equal(`${arr[0]}_${arr[1]}`, `${base}_${quote}`);
 
   return [base, quote];
-}
-
-interface KrakenPairInfo {
-  altname: string;
-  wsname: string;
-  aclass_base: string;
-  base: string;
-  aclass_quote: string;
-  quote: string;
-  lot: string;
-  pair_decimals: number;
-  lot_decimals: number;
-  lot_multiplier: number;
-  fees: number[][];
-  fees_maker: number[][];
-  fee_volume_currency: string;
-  margin_call: number;
-  margin_stop: number;
 }
 
 export async function fetchSpotMarkets(): Promise<readonly Market[]> {
