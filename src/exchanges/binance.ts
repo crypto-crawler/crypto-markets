@@ -230,6 +230,7 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
   }
   const spot = await fetchSpotMarkets();
   const swap = await fetchSwapMarkets();
+  const futures = await fetchFuturesMarkets();
 
-  return spot.concat(swap);
+  return spot.concat(swap).concat(futures);
 }
