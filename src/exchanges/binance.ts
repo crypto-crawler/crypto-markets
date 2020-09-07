@@ -225,7 +225,7 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
       case 'Swap':
         return fetchSwapMarkets();
       default:
-        throw new Error(`Unkown marketType ${marketType}, Binance has only Spot and Swap markets.`);
+        throw new Error(`Unkown marketType ${marketType}`);
     }
   }
   const spot = await fetchSpotMarkets();
