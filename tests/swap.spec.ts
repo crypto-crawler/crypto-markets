@@ -1,5 +1,9 @@
 import fetchMarkets from '../src/index';
 
+beforeAll(async () => {
+  jest.setTimeout(20 * 1000);
+});
+
 const SWAP_EXCHANGES = ['Binance', 'BitMEX', 'Bitfinex', 'OKEx', 'Huobi'];
 
 describe('market.pair and market.id should be unique in Swap market', () => {
