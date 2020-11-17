@@ -1,7 +1,7 @@
 import fetchMarkets, { SUPPORTED_EXCHANGES } from '../src/index';
 
 beforeAll(async () => {
-  jest.setTimeout(20 * 1000);
+  jest.setTimeout(80 * 1000);
 });
 
 describe('market.id should be unique in each market', () => {
