@@ -90,13 +90,13 @@ async function fetchFuturesMarketsInternal(): Promise<readonly Market[]> {
     equalQtyPrecision: number;
     filters: ReadonlyArray<{ filterType: string; [key: string]: string | number }>;
     orderTypes: string[];
-    timeInForce: string;
+    timeInForce: string[];
   }>;
 
   const result: Market[] = arr.map((pair) => {
     const market: Market = {
       exchange: 'Binance',
-      type: pair.contractType === 'PERPETUAL' || pair.symbol.endsWith('_PERP') ? 'Swap' : 'Futures',
+      type: pair.contractType === 'PERPETUAL' ? 'Swap' : 'Futures',
       id: pair.symbol,
       pair: `${pair.baseAsset}_${pair.quoteAsset}`,
       base: pair.baseAsset,
@@ -163,7 +163,7 @@ export async function fetchSwapMarkets(): Promise<readonly Market[]> {
     quotePrecision: number;
     filters: ReadonlyArray<{ filterType: string; [key: string]: string | number }>;
     orderTypes: string[];
-    timeInForce: string;
+    timeInForce: string[];
   }>;
 
   const result: Market[] = arr.map((pair) => {

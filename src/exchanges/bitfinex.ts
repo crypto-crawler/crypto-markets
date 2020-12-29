@@ -38,6 +38,7 @@ function extractNormalizedPair(
 
   if (baseSymbol === 'HOT') baseSymbol = 'HYDRO';
   if (baseSymbol === 'ORS') baseSymbol = 'ORSGROUP';
+  if (baseSymbol === 'GLM') baseSymbol = 'GNT';
 
   return [baseSymbol, quoteSymbol];
 }
@@ -66,7 +67,7 @@ export async function fetchMarkets(marketType?: MarketType): Promise<readonly Ma
 
       const market: Market = {
         exchange: 'Bitfinex',
-        type: pair.pair.endsWith(':ustf0') ? 'Swap' : 'Spot',
+        type: pair.pair.endsWith('f0') ? 'Swap' : 'Spot',
         id: pair.pair,
         pair: `${baseSymbol}_${quoteSymbol}`,
         base: baseSymbol,
